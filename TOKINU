@@ -1,1 +1,103 @@
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/49abdfcd1ce9ec893553a573b9348ca3.lua"))()
+-- ok
+
+local plr = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "TokinuGangUI"
+gui.ResetOnSpawn = false
+gui.Parent = plr:WaitForChild("PlayerGui")
+
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 340, 0, 160)
+main.Position = UDim2.new(0.5, -170, 0.8, -80)
+main.BackgroundColor3 = Color3.new(0,0,0)
+main.BackgroundTransparency = 0.3
+main.Active = true
+main.Draggable = true
+main.Parent = gui
+
+local corner = Instance.new("UICorner", main)
+corner.CornerRadius = UDim.new(0, 16)
+
+-- title smh
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1,0,0.4,0)
+title.Position = UDim2.new(0,0,0.08,0)
+title.BackgroundTransparency = 1
+title.Text = "discord.gg/tokinu"
+title.TextColor3 = Color3.new(1,1,1)
+title.Font = Enum.Font.GothamBlack
+title.TextSize = 34
+title.TextStrokeTransparency = 0.8
+
+-- text
+local bottom = Instance.new("TextLabel", main)
+bottom.Size = UDim2.new(1,0,0.3,0)
+bottom.Position = UDim2.new(0,0,0.48,0)
+bottom.BackgroundTransparency = 1
+bottom.Text = "join for the best scripts"
+bottom.TextColor3 = Color3.new(0.8,0.8,0.8)
+bottom.Font = Enum.Font.GothamBold
+bottom.TextSize = 20
+
+-- button
+local copy = Instance.new("TextButton", main)
+copy.Size = UDim2.new(0,200,0,42)
+copy.Position = UDim2.new(0.5,-100,0.7,0)
+copy.BackgroundColor3 = Color3.fromRGB(88,101,242)
+copy.Text = "COPY INVITE"
+copy.TextColor3 = Color3.new(1,1,1)
+copy.Font = Enum.Font.GothamBlack
+copy.TextSize = 20
+Instance.new("UICorner", copy).CornerRadius = UDim.new(0,12)
+
+-- button (Red X)
+local close = Instance.new("TextButton", main)
+close.Size = UDim2.new(0,40,0,40)
+close.Position = UDim2.new(1,-48,0,8)
+close.BackgroundColor3 = Color3.fromRGB(220,20,20)
+close.Text = "X"
+close.TextColor3 = Color3.new(1,1,1)
+close.Font = Enum.Font.GothamBlack
+close.TextSize = 26
+Instance.new("UICorner", close).CornerRadius = UDim.new(0,12)
+
+-- notification
+local copied = Instance.new("TextLabel", main)
+copied.Size = UDim2.new(1,0,0.2,0)
+copied.Position = UDim2.new(0,0,0.92,0)
+copied.BackgroundTransparency = 1
+copied.Text = ""
+copied.TextColor3 = Color3.fromRGB(0,255,0)
+copied.Font = Enum.Font.GothamBlack
+copied.TextSize = 18
+
+-- invite functions stuff
+copy.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/tokinu")
+    copied.Text = "COPIED TWIN!"
+    task.wait(1.5)
+    copied.Text = ""
+end)
+
+-- effects
+copy.MouseEnter:Connect(function() copy.BackgroundColor3 = Color3.fromRGB(110,120,255) end)
+copy.MouseLeave:Connect(function() copy.BackgroundColor3 = Color3.fromRGB(88,101,242) end)
+close.MouseEnter:Connect(function() close.BackgroundColor3 = Color3.fromRGB(200,0,0) end)
+close.MouseLeave:Connect(function() close.BackgroundColor3 = Color3.fromRGB(220,20,20) end)
+
+-- GUI
+close.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
+
+print("UI Loaded Successfully")
+
+-- NOW load the actual script in the background (this will NOT kill the GUI anymore)
+task.spawn(function()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/49abdfcd1ce9ec893553a573b9348ca3.lua"))()
+    end)
+    if not success then
+        warn("Tokinu script failed to load (key issue or server down):", err)
+    end
+end)
